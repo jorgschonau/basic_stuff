@@ -1,5 +1,5 @@
 # install packages 
 
-install.packages(c("caret, "ggplot2", "dplyr", "zoo", "lubridate", "readr", "stringr", "tidyr", "randomForest", "rpart",
+install.packages(c("caret", "ggplot2", "dplyr", "zoo", "lubridate", "readr", "stringr", "tidyr", "randomForest", "rpart",
 "reshape2", "syuzhet", "viridis", "SentimentAnalysis", "RSentiment", "sentimentr", "tidytext", "tm", "SnowballC",
 "wordcloud", "RColorBrewer"))
