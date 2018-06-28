@@ -1,3 +1,3 @@
 # basic_stuff
 
-I'll put here smaller scripts etc that hopefully make my life easier
+Here I put smaller functions, scripts etc that hopefully will make my life easier
