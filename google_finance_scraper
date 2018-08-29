@@ -1,0 +1,69 @@
+library(ggplot2)
+library(xts)
+library(dygraphs)
+library(data.table)
+library(lubridate)
+
+#### google finance 
+
+# Function to fetch google stock data
+
+google_stocks <- function(sym, yrs = 2, current = TRUE)
+{
+  # sy, sm, sd, ey, em, ed correspond to
+  # start year, start month, start day, end year, end month, and end day
+  
+  require(lubridate)
+  
+  # start date x yrs ago
+  d_2yrsago <- as.Date(Sys.time())-years(yrs)
+  
+  sy <- as.numeric(substr(d_2yrsago, start = 1, stop = 4))
+  sm <- month.abb[(as.numeric(substr(d_2yrsago, start = 6, stop = 7)))]
+  sd <- as.numeric(substr(d_2yrsago, start = 9, stop = 10))
+
+  #current date
+  
+  system_time <- as.character(Sys.time())
+  
+  ey <- as.numeric(substr(system_time, start = 1, stop = 4))
+  em <- month.abb[(as.numeric(substr(system_time, start = 6, stop = 7)))]
+  ed <- as.numeric(substr(system_time, start = 9, stop = 10))
+
+  require(data.table)
+  
+  # Fetch data from google
+  
+  google_out = tryCatch(
+    suppressWarnings(
+      fread(paste0("http://finance.google.com/finance/historical",
+                   "?q=", sym,
+                   "&startdate=", paste(sm, paste0(sd,"%2C"), sy, sep = "+"), 
+                   "&enddate=", paste(em, paste0(ed,"%2C"), ey, sep = "+"),
+                   "&output=csv"), sep = ",")),
+    error = function(e) NULL
+  )
+  return(google_out)
+}
+
+# Testing
+ibm_data <-  as.data.frame(google_stocks("IBM", 1))
+apple_data <- as.data.frame(google_stocks("AAPL", 1))
+amazon_data <- as.data.frame(google_stocks("AMZN",1 ))
+
+# Conversions ....
+apple_data$date <- as.Date(apple_data$date, format = "%d-%m-%Y")
+amazon_data$date <- as.Date(amazon_data$date, format = "%d-%m-%Y")
+ibm_data$date <- as.Date(ibm_data$date, format = "%d-%m-%Y")
+
+str(ibm_data)
+
+#ibm_data <-  as.data.frame(google_stocks("IBM", 1))
+ibm_data$Date <- parse_date_time(ibm_data$Date, orders="d-m-y", tz ="GMT")
+
+apple_data$Open <- as.numeric(apple_data$Open)
+apple_data$Low <- as.numeric(apple_data$Open)
+ibm_data$Open <- as.numeric(ibm_data$Open)
+ibm_data$Low <- as.numeric(ibm_data$Low)
+amazon_data$Open <- as.numeric(amazon_data$Open)
+amazon_data$Low <- as.numeric(amazon_data$Low)
