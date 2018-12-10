@@ -1,0 +1,4 @@
+# basic function for adding/ subtracting n months from a date
+# use negative n for subtracting, can be easily modified for day, week etc
+
+add.months <- function(date,n) seq(date, by = paste (n, "months"), length = 2)[2]
