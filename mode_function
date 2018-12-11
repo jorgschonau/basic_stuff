@@ -1,6 +1,7 @@
+# returns the mode of a vector, i.e. the most common value
+
 Mode <- function(x) {
   ux <- unique(x)
   ux[which.max(tabulate(match(x, ux)))]
-}
+  }
 
-# returns the mode of a vector, i.e. the most common value
