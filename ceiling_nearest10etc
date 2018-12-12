@@ -1,0 +1,22 @@
+# comes in handy when rounding number up to the nearest 10s, 100s etc 
+
+numbers <- c(0.4, 10.45, 3, 221, 1022.56) # some random numbers
+ceiling (numbers/10)*10
+
+> ceiling (numbers)
+[1]    1   11    3  221 1023
+> ceiling (numbers/10)*10
+[1]   10   20   10  230 1030
+> ceiling (numbers/100)*100
+[1]  100  100  100  300 1100
+> ceiling (numbers/1000)*1000
+[1] 1000 1000 1000 1000 2000
+
+# also works with floor, obviously:
+
+> floor (numbers/10)*10
+[1]    0   10    0  220 1020
+> floor (numbers/100)*100
+[1]    0    0    0  200 1000
+> floor (numbers/1000)*1000
+[1]    0    0    0    0 1000
