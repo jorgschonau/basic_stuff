@@ -1,0 +1,13 @@
+# loads multiple files from a specific directory into data frames
+
+folder <- "~/Downloads/psds_data/" 
+# (optional: only include csv files) 
+file_list <- list.files(path=folder, pattern="*.csv")
+name_list <- gsub(".csv", "", file_list)
+
+for (i in 1:length(file_list)){
+  
+  assign(name_list[i], 
+  read.csv(paste(folder, file_list[i], sep=''))
+         
+  )}
