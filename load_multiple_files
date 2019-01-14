@@ -1,4 +1,4 @@
-# loads multiple files from a specific directory into data frames
+# loads multiple files from a specific directory into one frame
 
 folder <- "~/Downloads/psds_data/" 
 # (optional: only include csv files) 
