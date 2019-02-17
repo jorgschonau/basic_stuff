@@ -1,0 +1,30 @@
+# stringdist can be useful for all kinds of string manipulation
+# it measures the difference between two strings
+# One example: replacing the short version of a title with the complete one, without 
+# replacing each string individually
+
+example:
+library(stringdist)
+
+books <- data.frame("id" = seq(1, 6),
+                    "title_short" =  c("jekyllhyde", "thebiglebowski", "jekyllhyde", "crimeandpunishment",
+                                       "crimeandpunishment", "hamonrye"))
+
+booktitles_fixed <- c("dr jekyll and mr hyde", "the big lebowski", "crime and punishment", "ham on rye") 
+
+books <- books %>% 
+  mutate(title_long = booktitles_fixed[apply(stringdistmatrix(title_short, booktitles_fixed),
+                                        1, which.min)])
+                                        
+# also possible using parameters like maxDist, minDist etc                                        
+                                        
+# et voila, the short titles are nicely aligned with the long titles
+
+> books
+  id        title_short           title_long
+1  1         jekyllhyde           ham on rye
+2  2     thebiglebowski     the big lebowski
+3  3         jekyllhyde           ham on rye
+4  4 crimeandpunishment crime and punishment
+5  5 crimeandpunishment crime and punishment
+6  6           hamonrye           ham on rye
