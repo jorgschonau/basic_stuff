@@ -1,4 +1,4 @@
-# Basic stuff
+# Miscellaneous
 
 aka "this & that"
 
